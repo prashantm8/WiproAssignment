@@ -1,6 +1,7 @@
 
 import Axios from 'axios';
 import { BASE_URL } from '../../utils/Constants';
+import { shuffle } from '../../utils/deviceDimensions';
 
 export const AppImage = {
     getImageSuccess: 'getImageSuccess/AppImage',
@@ -21,7 +22,8 @@ export function getImageData() {
     return (dispatch, getState) => {
         dispatch(isLoading(true));
         Axios.get(BASE_URL).then((resp)=>{
-            dispatch(getImageSuccess(resp.data))
+            let data = shuffle(resp.data)
+            dispatch(getImageSuccess(data))
             dispatch(isLoading(false))
         }).catch((err) => {
             dispatch(isLoading(false));
